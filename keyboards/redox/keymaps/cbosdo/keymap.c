@@ -17,9 +17,6 @@ enum custom_keycodes {
   APPS,
   ADJUST,
   G_RECON,
-  G_REAUT,
-  G_PUFOR,
-  G_CIAME,
 };
 
 enum tap_dance {
@@ -108,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,KC_CALC ,KC_PSCR ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_VOLD ,KC_VOLU ,KC_MUTE ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,G_RECON ,G_REAUT ,G_PUFOR ,G_CIAME ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,G_RECON ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
@@ -177,21 +174,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case G_RECON:
             if (record->event.pressed) {
                 SEND_STRING("git rebase --continue\n");
-            }
-            break;
-        case G_REAUT:
-            if (record->event.pressed) {
-                SEND_STRING("git rebase -i --autosquash ");
-            }
-            break;
-        case G_PUFOR:
-            if (record->event.pressed) {
-                SEND_STRING("git push -f");
-            }
-            break;
-        case G_CIAME:
-            if (record->event.pressed) {
-                SEND_STRING("git commit --amend");
             }
             break;
     }
