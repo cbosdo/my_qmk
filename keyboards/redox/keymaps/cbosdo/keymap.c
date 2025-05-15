@@ -69,6 +69,11 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ALT1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_finished, alt_reset),
 };
 
+const uint16_t PROGMEM shift_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(shift_combo, KC_CAPS_LOCK),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
