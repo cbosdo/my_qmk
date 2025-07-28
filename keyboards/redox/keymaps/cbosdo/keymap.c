@@ -5,241 +5,143 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _SYMB 1
-#define _APPS 2
-#define _ADJUST 3
-
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  SYMB,
-  APPS,
-  ADJUST,
-  G_RECON,
-};
-
-enum tap_dance {
-  TD_LBRC,
-  TD_RBRC,
-  TD_ALT1,
-  TD_LSFT,
-  TD_RSFT,
-  TD_RAIN,
-};
+#define _NAV 1
+#define _FUN 2
 
 // Shortcut to make keymap more readable
-#define SYM_L   OSL(_SYMB)
-#define APP_L   TG(_APPS)
+#define NAV_L   OSL(_NAV)
 
 
-#define KC_ALAS LALT_T(KC_PAST)
-#define KC_CTPL LCTL_T(KC_BSLS)
+#define KC_CTBS LCTL_T(KC_BSLS)
 #define KC_CSMN C_S_T(KC_PMNS)
 #define KC_CAPL LCA_T(KC_PPLS)
-#define KC_DEGR SAGR(KC_QUOT)
 
-#define KC_APGR LT(_APPS, KC_GRV)
-#define KC_APMN LT(_APPS, KC_MINS)
+#define KC_RAIN MT(MOD_RALT, KC_INS)
 
-#define KC_TDLB TD(TD_LBRC)
-#define KC_TDRB TD(TD_RBRC)
-#define KC_TDAL TD(TD_ALT1)
-#define KC_TDLS TD(TD_LSFT)
-#define KC_TDRS TD(TD_RSFT)
-#define KC_RAIN TD(TD_RAIN)
+#define CMD_A   LCMD_T(KC_A)
+#define SHIFT_S LSFT_T(KC_S)
+#define CTRL_D  LCTL_T(KC_D)
+#define ALT_F   LALT_T(KC_F)
 
-int cur_dance (tap_dance_state_t *state);
-void alt_finished (tap_dance_state_t *state, void *user_data);
-void alt_reset (tap_dance_state_t *state, void *user_data);
+#define ALT_J   LALT_T(KC_J)
+#define CTRL_K  RCTL_T(KC_K)
+#define SHIFT_L RSFT_T(KC_L)
+#define CMD_SCL CMD_T(KC_SCLN)
 
-void lsft_finished (tap_dance_state_t *state, void *user_data);
-void lsft_reset (tap_dance_state_t *state, void *user_data);
+#define FN_ESC LT(_FUN, KC_ESC)
 
-void rsft_finished (tap_dance_state_t *state, void *user_data);
-void rsft_reset (tap_dance_state_t *state, void *user_data);
+#define EURO    LSFT(KC_1)
+#define FR_LQOT LSFT(KC_2)
+#define FR_RQOT LSFT(KC_3)
 
-void rain_finished (tap_dance_state_t *state, void *user_data);
-void rain_reset (tap_dance_state_t *state, void *user_data);
 
-typedef struct {
-    bool is_press_action;
-    int state;
-} tap;
-
-enum {
-  SINGLE_TAP = 1,
-  SINGLE_HOLD = 2,
-  DOUBLE_TAP = 3,
-  DOUBLE_HOLD = 4,
-};
-
-tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for [, twice for (
-    [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LPRN),
-    // Tap once for ], twice for )
-    [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RPRN),
-    [TD_ALT1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_finished, alt_reset),
-    [TD_LSFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lsft_finished, lsft_reset),
-    [TD_RSFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rsft_finished, rsft_reset),
-    [TD_RAIN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rain_finished, rain_reset),
-};
+layer_state_t layer_state_set_user(layer_state_t state);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [_QWERTY] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_APGR ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,APP_L   ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                                            _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,KC_ESC  ,                          KC_MINS ,KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_EQL  ,
+     _______ ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,_______ ,                          _______ ,KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     SYM_L   ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,KC_TDLB ,                          KC_TDRB ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,SYM_L   ,
+     _______ ,CMD_A   ,SHIFT_S ,CTRL_D  ,ALT_F   ,KC_G    ,_______ ,                          _______ ,KC_H    ,ALT_J   ,CTRL_K  ,SHIFT_L ,CMD_SCL ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TDRS ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,KC_PGUP ,KC_PGDN ,        KC_HOME ,KC_END  ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_DEL  ,
+     _______ ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,_______ ,_______ ,        _______ ,_______ ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,_______ ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     KC_LGUI ,KC_CAPL ,KC_CSMN ,KC_TDAL ,     KC_CTPL ,    KC_SPC  ,KC_BSPC ,        KC_ENT  ,KC_TDRS,     KC_RAIN ,     KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RGHT
+     _______ ,_______ ,_______ ,_______ ,     NAV_L   ,    KC_SPC  ,KC_BSPC ,        KC_ENT  ,FN_ESC  ,    KC_RAIN ,     _______ ,_______ ,_______ ,_______
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
-  [_SYMB] = LAYOUT(
+  [_NAV] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,                                            KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                                            _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,KC_EXLM ,KC_AT   ,KC_LABK ,KC_RABK ,KC_PIPE ,_______ ,                          _______ ,KC_PSLS ,KC_P7   ,KC_P8   ,KC_P9   ,KC_PMNS ,KC_F12  ,
+     _______ ,EURO    ,KC_HOME ,KC_UP   ,KC_END  ,KC_PGUP ,_______ ,                          _______ ,KC_PSLS ,KC_P7   ,KC_P8   ,KC_P9   ,KC_F11  ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,KC_HASH ,KC_DLR  ,KC_UNDS ,KC_DQUO ,KC_QUOT ,KC_GRV  ,                          _______ ,KC_PAST ,KC_P4   ,KC_P5   ,KC_P6   ,KC_PPLS ,XXXXXXX ,
+     _______ ,KC_TAB  ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_PGDN ,_______ ,                          _______ ,KC_PMNS ,KC_P4   ,KC_P5   ,KC_P6   ,KC_P0   ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,KC_PERC ,KC_CIRC ,KC_QUES ,KC_DEGR ,KC_TILD ,_______ ,_______ ,        _______ ,_______ ,KC_P0   ,KC_P1   ,KC_P2   ,KC_P3   ,KC_PDOT ,_______ ,
+     _______ ,_______ ,KC_VOLD ,KC_MUTE ,KC_VOLU ,_______ ,_______ ,_______ ,        _______ ,_______ ,KC_NUM  ,KC_P1   ,KC_P2   ,KC_P3   ,KC_PDOT ,_______ ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     _______ ,_______ ,_______ ,_______ ,     _______ ,    _______ ,_______ ,        _______ ,_______ ,    KC_NUM  ,     KC_P0   ,KC_PDOT ,KC_PENT ,XXXXXXX
+     _______ ,_______ ,_______ ,_______ ,     _______ ,    _______ ,KC_DEL  ,        _______ ,_______ ,    _______ ,     _______ ,_______ ,_______ ,_______
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
-  [_APPS] = LAYOUT(
+  [_FUN] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,                                            KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,APP_L   ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                                            _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,KC_CALC ,KC_PSCR ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          _______ ,XXXXXXX ,XXXXXXX ,KC_VOLD ,KC_VOLU ,KC_MUTE ,XXXXXXX ,
+     _______ ,_______ ,FR_LQOT ,FR_RQOT ,_______ ,_______ ,_______ ,                          _______ ,_______ ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F11  ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,G_RECON ,XXXXXXX ,XXXXXXX ,KC_PGUP ,KC_PGDN ,XXXXXXX ,                          XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RGHT ,XXXXXXX ,XXXXXXX ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                          _______ ,_______ ,KC_F4   ,KC_F5   ,KC_F6   ,KC_F10  ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,        _______ ,_______ ,_______ ,KC_F1   ,KC_F2   ,KC_F3   ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     _______ ,_______ ,_______ ,KC_LALT ,     KC_LCTL ,    XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX ,    XXXXXXX ,     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+     _______ ,_______ ,_______ ,_______ ,     _______ ,    _______ ,_______ ,        KC_CALC ,KC_PSCR ,    _______ ,     _______ ,_______ ,_______ ,_______
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 };
 
-int cur_dance (tap_dance_state_t *state) {
-  if (state->count == 1) {
-    if (state->pressed) return SINGLE_HOLD;
-    else return SINGLE_TAP;
-  }
-  else if (state->count == 2) {
-    if (state->pressed) return DOUBLE_HOLD;
-    else return DOUBLE_TAP;
-  }
-  else return 8;
-}
 
-static tap alttap_state = {
-  .is_press_action = true,
-  .state = 0
-};
+// Toggle num lock on when switching to NAV layer
+layer_state_t layer_state_set_user(layer_state_t state) {
+    led_t led_state = host_keyboard_led_state();
+    bool g_num_lock_state = led_state.num_lock;
 
-void alt_finished (tap_dance_state_t *state, void *user_data) {
-  alttap_state.state = cur_dance(state);
-  switch (alttap_state.state) {
-    case SINGLE_TAP: set_oneshot_layer(_SYMB, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
-    case SINGLE_HOLD: register_code(KC_LALT); break;
-    case DOUBLE_TAP: set_oneshot_layer(_SYMB, ONESHOT_START); set_oneshot_layer(_SYMB, ONESHOT_PRESSED); break;
-    case DOUBLE_HOLD: register_code(KC_LALT); layer_on(_SYMB); break;
-  }
-}
-
-void alt_reset (tap_dance_state_t *state, void *user_data) {
-  switch (alttap_state.state) {
-    case SINGLE_TAP: break;
-    case SINGLE_HOLD: unregister_code(KC_LALT); break;
-    case DOUBLE_TAP: break;
-    case DOUBLE_HOLD: layer_off(_SYMB); unregister_code(KC_LALT); break;
-  }
-  alttap_state.state = 0;
-}
-
-static tap lsfttap_state = {
-  .is_press_action = true,
-  .state = 0
-};
-
-void lsft_finished (tap_dance_state_t *state, void *user_data) {
-  lsfttap_state.state = cur_dance(state);
-  switch (lsfttap_state.state) {
-    case SINGLE_TAP: set_oneshot_layer(_SYMB, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
-    case SINGLE_HOLD: register_code(KC_LSFT); break;
-    case DOUBLE_TAP: register_code(KC_CAPS_LOCK); break;
-  }
-}
-
-void lsft_reset (tap_dance_state_t *state, void *user_data) {
-  switch (lsfttap_state.state) {
-    case SINGLE_TAP: break;
-    case SINGLE_HOLD: unregister_code(KC_LSFT); break;
-    case DOUBLE_TAP: unregister_code(KC_CAPS_LOCK); break;
-  }
-  lsfttap_state.state = 0;
-}
-
-static tap rsfttap_state = {
-  .is_press_action = true,
-  .state = 0
-};
-
-void rsft_finished (tap_dance_state_t *state, void *user_data) {
-  rsfttap_state.state = cur_dance(state);
-  switch (rsfttap_state.state) {
-    case SINGLE_TAP: set_oneshot_layer(_SYMB, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
-    case SINGLE_HOLD: register_code(KC_RSFT); break;
-    case DOUBLE_TAP: register_code(KC_CAPS_LOCK); break;
-  }
-}
-
-void rsft_reset (tap_dance_state_t *state, void *user_data) {
-  switch (rsfttap_state.state) {
-    case SINGLE_TAP: break;
-    case SINGLE_HOLD: unregister_code(KC_RSFT); break;
-    case DOUBLE_TAP: unregister_code(KC_CAPS_LOCK); break;
-  }
-  rsfttap_state.state = 0;
-}
-
-static tap raintap_state = {
-  .is_press_action = true,
-  .state = 0
-};
-
-void rain_finished (tap_dance_state_t *state, void *user_data) {
-  raintap_state.state = cur_dance(state);
-  switch (raintap_state.state) {
-    case SINGLE_TAP: register_code(KC_INS); break;
-    case SINGLE_HOLD: register_code(KC_RALT); break;
-    case DOUBLE_TAP: set_oneshot_mods(MOD_BIT(KC_RALT)); break;
-  }
-}
-
-void rain_reset (tap_dance_state_t *state, void *user_data) {
-  switch (raintap_state.state) {
-    case SINGLE_TAP: unregister_code(KC_INS); break;
-    case SINGLE_HOLD: unregister_code(KC_RALT); break;
-  }
-  raintap_state.state = 0;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case G_RECON:
-            if (record->event.pressed) {
-                SEND_STRING("git rebase --continue\n");
-            }
-            break;
+    switch(get_highest_layer(state)) {
+        // replace number with your num lock layer number
+        case _NAV:
+        if (!g_num_lock_state) {
+            tap_code(KC_NUM_LOCK);
+        }
+        break;
     }
-    return true;
+    return state;
 }
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // ergo-L changes
+        case KC_O:
+        case KC_N:
+            return false;
+
+        case KC_C:
+            return true;
+
+        // KC_V continues Caps Word, with shift applied.
+        // ALTGR(KC_V) continues Caps Word, without shifting.
+        case KC_V:
+            // Apply shift if altgr is not activated.
+            if (!(get_mods() & MOD_BIT(KC_RALT))) {
+                add_weak_mods(MOD_BIT(KC_LSFT));
+            }
+            return true;
+
+        case KC_SCLN:
+            case KC_COMM:
+        case KC_SLSH:
+
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A:
+        case KC_B:
+        case KC_D ... KC_M:
+        case KC_P ... KC_U:
+        case KC_W ... KC_Z:
+            if (get_mods() & MOD_BIT(KC_RALT)) { // Stop on altgr symbols
+                return false;
+            }
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_P1 ... KC_P0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+};

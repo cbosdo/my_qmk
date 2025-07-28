@@ -44,3 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif // !NO_PRINTER
+
+#define TAPPING_TERM 250
+#define QUICK_TAP_TERM 0
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_INVERT_ON_SHIFT
