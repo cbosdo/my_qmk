@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                                                    ├────────┼────────┼────────┼────────┼────────┤
      KC_TAB  ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_PGDN ,                                                     KC_PMNS ,KC_P4   ,KC_P5   ,KC_P6   ,KC_P0   ,
   //├────────┼────────┼────────┼────────┼────────┤                                                    ├────────┼────────┼────────┼────────┼────────┤
-     KC_VOLD ,KC_MUTE ,KC_VOLU ,_______ ,_______ ,                                                     XXXXXXX ,KC_P1   ,KC_P2   ,KC_P3   ,KC_PDOT ,
+     _______, KC_VOLD ,KC_MUTE ,KC_VOLU ,_______ ,                                                     XXXXXXX ,KC_P1   ,KC_P2   ,KC_P3   ,KC_PDOT ,
   //└────────┴────────┴────────┴────────┴────┬───┴────┬───┬────────┬────────┐       ┌────────┬────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                               _______ ,    _______ ,KC_DEL  ,        _______ ,_______ ,    _______
   //                                         └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘
@@ -142,8 +142,11 @@ bool caps_word_press_user(uint16_t keycode) {
     }
 };
 
-
-#ifdef OTHER_KEYMAP_C
-#    include OTHER_KEYMAP_C
-#endif // OTHER_KEYMAP_C
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  debug_keyboard=true;
+  //debug_mouse=true;
+}
 
