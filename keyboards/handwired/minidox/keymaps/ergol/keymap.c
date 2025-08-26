@@ -14,11 +14,6 @@
 // Shortcut to make keymap more readable
 #define NAV_L   OSL(_NAV)
 
-
-#define KC_CTBS LCTL_T(KC_BSLS)
-#define KC_CSMN C_S_T(KC_PMNS)
-#define KC_CAPL LCA_T(KC_PPLS)
-
 #define KC_RAIN MT(MOD_RALT, KC_INS)
 
 #define CMD_A   LCMD_T(KC_A)
@@ -59,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                                                    ├────────┼────────┼────────┼────────┼────────┤
      KC_TAB  ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_PGDN ,                                                     KC_PMNS ,KC_P4   ,KC_P5   ,KC_P6   ,KC_P0   ,
   //├────────┼────────┼────────┼────────┼────────┤                                                    ├────────┼────────┼────────┼────────┼────────┤
-     _______, KC_VOLD ,KC_MUTE ,KC_VOLU ,_______ ,                                                     XXXXXXX ,KC_P1   ,KC_P2   ,KC_P3   ,KC_PDOT ,
+     _______, KC_VOLD ,KC_MUTE ,KC_VOLU ,_______ ,                                                     KC_PPLS ,KC_P1   ,KC_P2   ,KC_P3   ,KC_PDOT ,
   //└────────┴────────┴────────┴────────┴────┬───┴────┬───┬────────┬────────┐       ┌────────┬────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                               _______ ,    _______ ,KC_DEL  ,        _______ ,_______ ,    _______
   //                                         └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘
