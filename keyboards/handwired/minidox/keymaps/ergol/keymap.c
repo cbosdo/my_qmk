@@ -50,11 +50,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT_split_3x5_3(
   //┌────────┬────────┬────────┬────────┬────────┐                                                    ┌────────┬────────┬────────┬────────┬────────┐
-     EURO    ,KC_HOME ,KC_UP   ,KC_END  ,KC_PGUP ,                                                     KC_PSLS ,KC_P7   ,KC_P8   ,KC_P9   ,KC_F11  ,
+     EURO    ,KC_HOME ,KC_UP   ,KC_END  ,KC_PGUP ,                                                     KC_MINS ,KC_7    ,KC_8    ,KC_9    ,KC_ASTR ,
   //├────────┼────────┼────────┼────────┼────────┤                                                    ├────────┼────────┼────────┼────────┼────────┤
-     KC_TAB  ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_PGDN ,                                                     KC_PMNS ,KC_P4   ,KC_P5   ,KC_P6   ,KC_P0   ,
+     KC_TAB  ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_PGDN ,                                                     KC_C    ,KC_4    ,KC_5    ,KC_6    ,KC_0    ,
   //├────────┼────────┼────────┼────────┼────────┤                                                    ├────────┼────────┼────────┼────────┼────────┤
-     _______, KC_VOLD ,KC_MUTE ,KC_VOLU ,_______ ,                                                     KC_PPLS ,KC_P1   ,KC_P2   ,KC_P3   ,KC_PDOT ,
+     _______, KC_VOLD ,KC_MUTE ,KC_VOLU ,_______ ,                                                     KC_PLUS ,KC_1    ,KC_2    ,KC_3    ,KC_N    ,
   //└────────┴────────┴────────┴────────┴────┬───┴────┬───┬────────┬────────┐       ┌────────┬────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                               _______ ,    _______ ,KC_DEL  ,        _______ ,_______ ,    _______
   //                                         └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘
@@ -72,22 +72,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                         └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘
   ),
 };
-
-// Toggle num lock on when switching to NAV layer
-layer_state_t layer_state_set_user(layer_state_t state) {
-    led_t led_state = host_keyboard_led_state();
-    bool g_num_lock_state = led_state.num_lock;
-
-    switch(get_highest_layer(state)) {
-        // replace number with your num lock layer number
-        case _NAV:
-        if (!g_num_lock_state) {
-            tap_code(KC_NUM_LOCK);
-        }
-        break;
-    }
-    return state;
-}
 
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
