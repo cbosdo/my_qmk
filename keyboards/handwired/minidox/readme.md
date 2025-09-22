@@ -1,6 +1,7 @@
 # Minidox
 
-A 36 key (3x5+3), split bodied keyboard derived from the [Minidox](/keyboards/handwired/dactyl_manuform/).
+A 36 key (3x5+3), split bodied keyboard derived from the [Dactyl Minidox](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_minidox/).
+The layout has been designed for [Ergo-L](https://ergol.org/).
 
 * Keyboard Maintainer: [Cedric Bosdonnat](https://github.com/cbosdo)
 * Hardware Supported: Pro Micro controller, or clone of
